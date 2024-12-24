@@ -1,0 +1,526 @@
+{
+	"info": {
+		"_postman_id": "fe7601ea-bf1c-4061-a3bc-b6adaa324896",
+		"name": "User Account API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25096946",
+		"_collection_link": "https://crimson-shadow-169441.postman.co/workspace/6c769e6d-d950-46f2-8365-c5af54cb8382/collection/25096946-fe7601ea-bf1c-4061-a3bc-b6adaa324896?action=share&source=collection_link&creator=25096946"
+	},
+	"item": [
+		{
+			"name": "Mail API",
+			"item": [
+				{
+					"name": "Получение списка сообщений",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL User Account}}api/v2/messages?limit=50",
+							"host": [
+								"{{URL User Account}}api"
+							],
+							"path": [
+								"v2",
+								"messages"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Поиск конкретного сообщения по ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL User Account}}api/v1/messages/jVnbGpDW0He9mIbBawMrUWYIR4ZE901-DYWmX_S9t3A=@mailhog.example",
+							"host": [
+								"{{URL User Account}}api"
+							],
+							"path": [
+								"v1",
+								"messages",
+								"jVnbGpDW0He9mIbBawMrUWYIR4ZE901-DYWmX_S9t3A=@mailhog.example"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Account API",
+			"item": [
+				{
+					"name": "1.  Регистрация пользователя",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"Bulat.khisameev\",\n  \"email\": \"Bulat.khislis@mail.ru\",\n  \"password\": \"sbdabgkb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL Mail}}v1/account",
+							"host": [
+								"{{URL Mail}}v1"
+							],
+							"path": [
+								"account"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'POST' \\\n  'http://5.63.153.31:5051/v1/account' \\\n  -H 'accept: */*' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"login\": \"string\",\n  \"email\": \"string\",\n  \"password\": \"string\"\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "2. Активация учетной записи",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{URL Mail}}v1/account/4895baa4-83be-428f-9f07-41de8b929adc",
+							"host": [
+								"{{URL Mail}}v1"
+							],
+							"path": [
+								"account",
+								"4895baa4-83be-428f-9f07-41de8b929adc"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'PUT' \\\n  'http://5.63.153.31:5051/v1/account/9fed9531-3ba0-401e-9e6e-f564e2072344' \\\n  -H 'accept: text/plain'"
+					},
+					"response": []
+				},
+				{
+					"name": "3. Аутентификация пользователя (вход)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"X-Dm-Auth-Token is present\", function (){",
+									"    pm.response.to.have.header(\"X-Dm-Auth-Token\");",
+									"});",
+									"",
+									"let params = pm.response.headers.get('X-Dm-Auth-Token')",
+									"console.log (params)",
+									"pm.globals.set(\"X-Dm-Auth-Token\", params);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"Bulat.khisameev\",\n  \"password\": \"sbdabgkbulat\",\n  \"rememberMe\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL Mail}}v1/account/login",
+							"host": [
+								"{{URL Mail}}v1"
+							],
+							"path": [
+								"account",
+								"login"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'POST' \\\n  'http://5.63.153.31:5051/v1/account/login' \\\n  -H 'accept: text/plain' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"login\": \"string\",\n  \"password\": \"string\",\n  \"rememberMe\": true\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "4. Получение данных текущего пользователя",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							},
+							{
+								"key": "X-Dm-Auth-Token",
+								"value": "IQJh+zgzF5DMeEMVppR8pao7XT63SvUKJCLoD3hijHeDnBgtV9IBvKYlk2Fq0/WnczCX0XyHPciobg9nRLdEglSyE03lxDNGpS2rFthvAoVvDFaxi5HEBQDZOHIt341KbWrUrRZ7I4I="
+							}
+						],
+						"url": {
+							"raw": "{{URL Mail}}v1/account",
+							"host": [
+								"{{URL Mail}}v1"
+							],
+							"path": [
+								"account"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'GET' \\\n  'http://5.63.153.31:5051/v1/account' \\\n  -H 'accept: text/plain' \\\n  -H 'X-Dm-Auth-Token: IQJh+zgzF5DMeEMVppR8pao7XT63SvUKJCLoD3hijHeDnBgtV9IBvKYlk2Fq0/WnczCX0XyHPciobg9nRLdEglSyE03lxDNGpS2rFthvAoVvDFaxi5HEBQDZOHIt341KbWrUrRZ7I4I='"
+					},
+					"response": []
+				},
+				{
+					"name": "5. Инициация сброса пароля",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							},
+							{
+								"key": "X-Dm-Auth-Token",
+								"value": "IQJh+zgzF5DMeEMVppR8pao7XT63SvUKJCLoD3hijHeDnBgtV9IBvKYlk2Fq0/WnczCX0XyHPciobg9nRLdEglSyE03lxDNGpS2rFthvAoVvDFaxi5HEBQDZOHIt341KbWrUrRZ7I4I="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"Bulat.khisameev\",\n  \"email\": \"Bulat.khislis@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL Mail}}v1/account/password",
+							"host": [
+								"{{URL Mail}}v1"
+							],
+							"path": [
+								"account",
+								"password"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'POST' \\\n  'http://5.63.153.31:5051/v1/account/password' \\\n  -H 'accept: text/plain' \\\n  -H 'X-Dm-Auth-Token: IQJh+zgzF5DMeEMVppR8pao7XT63SvUKJCLoD3hijHeDnBgtV9IBvKYlk2Fq0/WnczCX0XyHPciobg9nRLdEglSyE03lxDNGpS2rFthvAoVvDFaxi5HEBQDZOHIt341KbWrUrRZ7I4I=' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"login\": \"string\",\n  \"email\": \"string\"\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "6. Изменение пароля",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							},
+							{
+								"key": "X-Dm-Auth-Token",
+								"value": "IQJh+zgzF5DMeEMVppR8pao7XT63SvUKJCLoD3hijHeDnBgtV9IBvKYlk2Fq0/WnczCX0XyHPciobg9nRLdEglSyE03lxDNGpS2rFthvAoVvDFaxi5HEBQDZOHIt341KbWrUrRZ7I4I="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"Bulat.khislis@mail.ru\",\n  \"token\": \"08310a30-292c-4a7f-b8b0-1bdaf91eb232\",\n  \"oldPassword\": \"sbdabgkb\",\n  \"newPassword\": \"sbdabgkbulat\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL Mail}}v1/account/password",
+							"host": [
+								"{{URL Mail}}v1"
+							],
+							"path": [
+								"account",
+								"password"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'PUT' \\\n  'http://5.63.153.31:5051/v1/account/password' \\\n  -H 'accept: text/plain' \\\n  -H 'X-Dm-Auth-Token: IQJh+zgzF5DMeEMVppR8pao7XT63SvUKJCLoD3hijHeDnBgtV9IBvKYlk2Fq0/WnczCX0XyHPciobg9nRLdEglSyE03lxDNGpS2rFthvAoVvDFaxi5HEBQDZOHIt341KbWrUrRZ7I4I=' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"login\": \"string\",\n  \"token\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"oldPassword\": \"string\",\n  \"newPassword\": \"string\"\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "7. Изменение email",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							},
+							{
+								"key": "X-Dm-Auth-Token",
+								"value": "IQJh+zgzF5DMeEMVppR8pao7XT63SvUKJCLoD3hijHeDnBgtV9IBvKYlk2Fq0/WnczCX0XyHPciobg9nRLdEglSyE03lxDNGpS2rFthvAoVvDFaxi5HEBQDZOHIt341KbWrUrRZ7I4I="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"Bulat.khisameev\",\n  \"password\": \"sbdabgkbulat\",\n  \"email\": \"Bulat.galimovich@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL Mail}}v1/account/email",
+							"host": [
+								"{{URL Mail}}v1"
+							],
+							"path": [
+								"account",
+								"email"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'PUT' \\\n  'http://5.63.153.31:5051/v1/account/email' \\\n  -H 'accept: text/plain' \\\n  -H 'X-Dm-Auth-Token: IQJh+zgzF5DMeEMVppR8pao7XT63SvUKJCLoD3hijHeDnBgtV9IBvKYlk2Fq0/WnczCX0XyHPciobg9nRLdEglSyE03lxDNGpS2rFthvAoVvDFaxi5HEBQDZOHIt341KbWrUrRZ7I4I=' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"login\": \"string\",\n  \"password\": \"string\",\n  \"email\": \"string\"\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "8. Выход пользователя",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "X-Dm-Auth-Token",
+								"value": "IQJh+zgzF5DMeEMVppR8pao7XT63SvUKJCLoD3hijHeDnBgtV9IBvKYlk2Fq0/WnczCX0XyHPciobg9nRLdEglSyE03lxDNGpS2rFthvAoVvDFaxi5HEBQDZOHIt341KbWrUrRZ7I4I="
+							}
+						],
+						"url": {
+							"raw": "{{URL Mail}}v1/account/login",
+							"host": [
+								"{{URL Mail}}v1"
+							],
+							"path": [
+								"account",
+								"login"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'DELETE' \\\n  'http://5.63.153.31:5051/v1/account/login' \\\n  -H 'accept: */*' \\\n  -H 'X-Dm-Auth-Token: IQJh+zgzF5DMeEMVppR8pao7XT63SvUKJCLoD3hijHeDnBgtV9IBvKYlk2Fq0/WnczCX0XyHPciobg9nRLdEglSyE03lxDNGpS2rFthvAoVvDFaxi5HEBQDZOHIt341KbWrUrRZ7I4I='"
+					},
+					"response": []
+				},
+				{
+					"name": "9. Выход со всех устройств",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "X-Dm-Auth-Token",
+								"value": "IQJh+zgzF5DMeEMVppR8pao7XT63SvUKJCLoD3hijHeDnBgtV9IBvKYlk2Fq0/WnczCX0XyHPciobg9nRLdEglSyE03lxDNGpS2rFthvAoVvDFaxi5HEBQDZOHIt341KbWrUrRZ7I4I="
+							}
+						],
+						"url": {
+							"raw": "{{URL Mail}}v1/account/login/all",
+							"host": [
+								"{{URL Mail}}v1"
+							],
+							"path": [
+								"account",
+								"login",
+								"all"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'DELETE' \\\n  'http://5.63.153.31:5051/v1/account/login/all' \\\n  -H 'accept: */*' \\\n  -H 'X-Dm-Auth-Token: IQJh+zgzF5DMeEMVppR8pao7XT63SvUKJCLoD3hijHeDnBgtV9IBvKYlk2Fq0/WnczCX0XyHPciobg9nRLdEglSyE03lxDNGpS2rFthvAoVvDFaxi5HEBQDZOHIt341KbWrUrRZ7I4I='"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Forum API",
+			"item": [
+				{
+					"name": "2. Получение списка id форума",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							},
+							{
+								"key": "X-Dm-Auth-Token",
+								"value": "IQJh+zgzF5CYEGjtR1dEX9xGLiZs4nOi50oG/rel9txVswItV4H5Dmxknd7Z1u/oBD6M9l3rdN4C8RU8ieRnWbYzTcrsFQ0vagf13kDkliBp1eKj9I3q1wNFmmi3Hk4GPEMVuHQVN60="
+							}
+						],
+						"url": {
+							"raw": "{{URL Mail}}v1/fora",
+							"host": [
+								"{{URL Mail}}v1"
+							],
+							"path": [
+								"fora"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'GET' \\\n  'http://5.63.153.31:5051/v1/fora' \\\n  -H 'accept: text/plain' \\\n  -H 'X-Dm-Auth-Token: IQJh+zgzF5CYEGjtR1dEX9xGLiZs4nOi50oG/rel9txVswItV4H5Dmxknd7Z1u/oBD6M9l3rdN4C8RU8ieRnWbYzTcrsFQ0vagf13kDkliBp1eKj9I3q1wNFmmi3Hk4GPEMVuHQVN60='"
+					},
+					"response": []
+				},
+				{
+					"name": "3. Получение конкретного id форума",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							},
+							{
+								"key": "X-Dm-Auth-Token",
+								"value": "IQJh+zgzF5CYEGjtR1dEX9xGLiZs4nOi50oG/rel9txVswItV4H5Dmxknd7Z1u/oBD6M9l3rdN4C8RU8ieRnWbYzTcrsFQ0vagf13kDkliBp1eKj9I3q1wNFmmi3Hk4GPEMVuHQVN60="
+							}
+						],
+						"url": {
+							"raw": "{{URL Mail}}v1/fora/%D0%94%D0%BB%D1%8F%20%D0%BD%D0%BE%D0%B2%D0%B8%D1%87%D0%BA%D0%BE%D0%B2",
+							"host": [
+								"{{URL Mail}}v1"
+							],
+							"path": [
+								"fora",
+								"%D0%94%D0%BB%D1%8F%20%D0%BD%D0%BE%D0%B2%D0%B8%D1%87%D0%BA%D0%BE%D0%B2"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'GET' \\\n  'http://5.63.153.31:5051/v1/fora/%D0%94%D0%BB%D1%8F%20%D0%BD%D0%BE%D0%B2%D0%B8%D1%87%D0%BA%D0%BE%D0%B2' \\\n  -H 'accept: text/plain' \\\n  -H 'X-Dm-Auth-Token: IQJh+zgzF5CYEGjtR1dEX9xGLiZs4nOi50oG/rel9txVswItV4H5Dmxknd7Z1u/oBD6M9l3rdN4C8RU8ieRnWbYzTcrsFQ0vagf13kDkliBp1eKj9I3q1wNFmmi3Hk4GPEMVuHQVN60='"
+					},
+					"response": []
+				},
+				{
+					"name": "4. Создание топика в конкретном id форума",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							},
+							{
+								"key": "X-Dm-Auth-Token",
+								"value": "IQJh+zgzF5CYEGjtR1dEX9xGLiZs4nOi50oG/rel9txVswItV4H5Dmxknd7Z1u/oBD6M9l3rdN4C8RU8ieRnWbYzTcrsFQ0vagf13kDkliBp1eKj9I3q1wNFmmi3Hk4GPEMVuHQVN60="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Для новичков\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL Mail}}v1/fora/%D0%94%D0%BB%D1%8F%20%D0%BD%D0%BE%D0%B2%D0%B8%D1%87%D0%BA%D0%BE%D0%B2/topics",
+							"host": [
+								"{{URL Mail}}v1"
+							],
+							"path": [
+								"fora",
+								"%D0%94%D0%BB%D1%8F%20%D0%BD%D0%BE%D0%B2%D0%B8%D1%87%D0%BA%D0%BE%D0%B2",
+								"topics"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'POST' \\\n  'http://5.63.153.31:5051/v1/fora/%D0%94%D0%BB%D1%8F%20%D0%BD%D0%BE%D0%B2%D0%B8%D1%87%D0%BA%D0%BE%D0%B2/topics' \\\n  -H 'accept: text/plain' \\\n  -H 'X-Dm-Auth-Token: IQJh+zgzF5CYEGjtR1dEX9xGLiZs4nOi50oG/rel9txVswItV4H5Dmxknd7Z1u/oBD6M9l3rdN4C8RU8ieRnWbYzTcrsFQ0vagf13kDkliBp1eKj9I3q1wNFmmi3Hk4GPEMVuHQVN60=' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"author\": {\n    \"login\": \"string\",\n    \"roles\": [\n      \"Guest\"\n    ],\n    \"mediumPictureUrl\": \"string\",\n    \"smallPictureUrl\": \"string\",\n    \"status\": \"string\",\n    \"rating\": {\n      \"enabled\": true,\n      \"quality\": 0,\n      \"quantity\": 0\n    },\n    \"online\": \"2024-12-02T12:29:22.962Z\",\n    \"name\": \"string\",\n    \"location\": \"string\",\n    \"registration\": \"2024-12-02T12:29:22.962Z\"\n  },\n  \"created\": \"2024-12-02T12:29:22.962Z\",\n  \"title\": \"string\",\n  \"description\": {\n    \"value\": \"string\",\n    \"parseMode\": \"Common\"\n  },\n  \"attached\": true,\n  \"closed\": true,\n  \"lastComment\": {\n    \"created\": \"2024-12-02T12:29:22.962Z\",\n    \"author\": {\n      \"login\": \"string\",\n      \"roles\": [\n        \"Guest\"\n      ],\n      \"mediumPictureUrl\": \"string\",\n      \"smallPictureUrl\": \"string\",\n      \"status\": \"string\",\n      \"rating\": {\n        \"enabled\": true,\n        \"quality\": 0,\n        \"quantity\": 0\n      },\n      \"online\": \"2024-12-02T12:29:22.962Z\",\n      \"name\": \"string\",\n      \"location\": \"string\",\n      \"registration\": \"2024-12-02T12:29:22.963Z\"\n    }\n  },\n  \"commentsCount\": 0,\n  \"unreadCommentsCount\": 0,\n  \"forum\": {\n    \"id\": \"string\",\n    \"unreadTopicsCount\": 0\n  },\n  \"likes\": [\n    {\n      \"login\": \"string\",\n      \"roles\": [\n        \"Guest\"\n      ],\n      \"mediumPictureUrl\": \"string\",\n      \"smallPictureUrl\": \"string\",\n      \"status\": \"string\",\n      \"rating\": {\n        \"enabled\": true,\n        \"quality\": 0,\n        \"quantity\": 0\n      },\n      \"online\": \"2024-12-02T12:29:22.963Z\",\n      \"name\": \"string\",\n      \"location\": \"string\",\n      \"registration\": \"2024-12-02T12:29:22.963Z\"\n    }\n  ]\n}'"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "X-Dm-Auth-Token",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{X-Dm-Auth-Token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

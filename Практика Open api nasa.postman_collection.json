@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "8d5d9e40-af8e-4da4-9b47-976e1068a020",
+		"name": "Практика Open api nasa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25096946",
+		"_collection_link": "https://crimson-shadow-169441.postman.co/workspace/Team-Workspace~6c769e6d-d950-46f2-8365-c5af54cb8382/collection/25096946-8d5d9e40-af8e-4da4-9b47-976e1068a020?action=share&source=collection_link&creator=25096946"
+	},
+	"item": [
+		{
+			"name": "Querying by Earth date",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Your name of test script\", function () {    ",
+							"\"check\"",
+							"});",
+							"",
+							"//проверка на статус код",
+							"pm.test(\"verify status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"//cпарсить request из get запроса в json",
+							"let request_querying = pm.request.url.query.toObject()",
+							"",
+							"console.log(request_querying)",
+							"",
+							"//проверка поля Earth date",
+							"pm.test(\"Поле Earth date\", function () {",
+							"    pm.expect(request_querying.earth_date).to.equal('2019-08-22');",
+							"});",
+							"",
+							"//cоответствие массиву",
+							"pm.test(\"Ответ от сервера массив\", function () {",
+							"    var photos = pm.response.json().photos;//получаем массив photos",
+							"    pm.expect(photos).to.be.an('array');",
+							"});",
+							"",
+							"// 'Photos type' test",
+							"pm.test(\"Photos type\", function () {",
+							"    var photos = pm.response.json().photos;//получаем массив photos",
+							"    photos.forEach(function(photo) {//проходим по каждой фотографии",
+							"        pm.expect(photo.id).to.be.a('number');",
+							"        pm.expect(photo.sol).to.be.a('number');",
+							"        pm.expect(photo.camera.id).to.be.a('number');",
+							"        pm.expect(photo.camera.name).to.be.a('string');",
+							"        pm.expect(photo.camera.rover_id).to.be.a('number');",
+							"        pm.expect(photo.camera.full_name).to.be.a('string');",
+							"        pm.expect(photo.img_src).to.be.a('string');",
+							"        pm.expect(photo.earth_date).to.be.a('string');",
+							"        pm.expect(photo.rover.id).to.be.a('number');",
+							"        pm.expect(photo.rover.name).to.be.a('string');",
+							"        pm.expect(photo.rover.landing_date).to.be.a('string');",
+							"        pm.expect(photo.rover.launch_date).to.be.a('string');",
+							"        pm.expect(photo.rover.status).to.be.a('string');",
+							"        pm.expect(photo.rover.max_sol).to.be.a('number');",
+							"        pm.expect(photo.rover.max_date).to.be.a('string');",
+							"        pm.expect(photo.rover.total_photos).to.be.a('number');",
+							"        pm.expect(photo.rover.total_photos).to.be.a('number');",
+							"    });",
+							"});",
+							"",
+							"// 'camera type' test",
+							"pm.test(\"Camera type\", function () {",
+							"    var photos = pm.response.json().photos;//получаем массив photos",
+							"    photos.forEach(function(photo) {//проходим по каждой фотографии",
+							"    var camera = photo.camera",
+							"        pm.expect(camera.id).to.be.a('number');",
+							"        pm.expect(camera.name).to.be.a('string');",
+							"        pm.expect(camera.rover_id).to.be.a('number');",
+							"        pm.expect(camera.full_name).to.be.a('string');",
+							"    });",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2019-08-22&api_key=DEMO_KEY&page=1",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"mars-photos",
+						"api",
+						"v1",
+						"rovers",
+						"curiosity",
+						"photos"
+					],
+					"query": [
+						{
+							"key": "earth_date",
+							"value": "2019-08-22"
+						},
+						{
+							"key": "api_key",
+							"value": "DEMO_KEY"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "DEMO_KEY",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "api_key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

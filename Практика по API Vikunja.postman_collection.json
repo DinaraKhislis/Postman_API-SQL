@@ -1,0 +1,1694 @@
+{
+	"info": {
+		"_postman_id": "31ee1bc4-73a7-4bb8-8b94-269c3161ad72",
+		"name": "Практика по API Vikunja",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25096946",
+		"_collection_link": "https://crimson-shadow-169441.postman.co/workspace/Team-Workspace~6c769e6d-d950-46f2-8365-c5af54cb8382/collection/25096946-31ee1bc4-73a7-4bb8-8b94-269c3161ad72?action=share&source=collection_link&creator=25096946"
+	},
+	"item": [
+		{
+			"name": "register and login",
+			"item": [
+				{
+					"name": "1. register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_register = pm.request.body.raw",
+									"",
+									"let parsed_request_register = JSON.parse(request_register)",
+									"",
+									"console.log(request_register)",
+									"",
+									"//cпарсить response body в json",
+									"let response_register = pm.response.json()",
+									"",
+									"console.log(response_register)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"saida1605199@mail.ru\",\n  \"password\": \"12345678\",\n  \"username\": \"saidd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/register",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"register"
+							]
+						},
+						"description": "Generated from cURL: curl 'https://try.vikunja.io/api/v1/register' -X POST -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Content-Type: application/json' -H 'Referer: https://try.vikunja.io/register' -H 'Origin: https://try.vikunja.io' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Connection: keep-alive' -H 'Priority: u=1' -H 'TE: trailers' --data-raw $'{\"username\":\"C\\u0430\\u0438\\u0434\\u0430\",\"email\":\"saida_khis@mail.ru\",\"password\":\"12345678\"}'"
+					},
+					"response": []
+				},
+				{
+					"name": "2. login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_login = pm.request.body.raw",
+									"",
+									"let parsed_request_login = JSON.parse(request_login)",
+									"",
+									"console.log(request_login)",
+									"",
+									"//cпарсить response body в json",
+									"let response_login = pm.response.json()",
+									"",
+									"console.log(response_login)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"//токен в переменные",
+									"pm.collectionVariables.set(\"token\", response_login.token)",
+									"pm.globals.set(\"token\", response_login.token);",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"saida1605199@mail.ru\",\n  \"password\": \"12345678\",\n  \"username\": \"saidd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/login",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						},
+						"description": "Generated from cURL: curl 'https://try.vikunja.io/api/v1/login' -X POST -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Content-Type: application/json' -H 'Referer: https://try.vikunja.io/register' -H 'Origin: https://try.vikunja.io' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Connection: keep-alive' -H 'TE: trailers' --data-raw $'{\"username\":\"C\\u0430\\u0438\\u0434\\u0430\",\"email\":\"saida_khis@mail.ru\",\"password\":\"12345678\"}'"
+					},
+					"response": []
+				},
+				{
+					"name": "2.1. login 401",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_login401 = pm.request.body.raw",
+									"",
+									"let parsed_request_login401 = JSON.parse(request_login401)",
+									"",
+									"console.log(request_login401)",
+									"",
+									"//cпарсить response body в json",
+									"let response_login401 = pm.response.json()",
+									"",
+									"console.log(response_login401)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"saida1605199@mail\",\n  \"password\": \"12345678\",\n  \"username\": \"saidd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/login",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						},
+						"description": "Generated from cURL: curl 'https://try.vikunja.io/api/v1/login' -X POST -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Content-Type: application/json' -H 'Referer: https://try.vikunja.io/register' -H 'Origin: https://try.vikunja.io' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Connection: keep-alive' -H 'TE: trailers' --data-raw $'{\"username\":\"C\\u0430\\u0438\\u0434\\u0430\",\"email\":\"saida_khis@mail.ru\",\"password\":\"12345678\"}'"
+					},
+					"response": []
+				},
+				{
+					"name": "2.2. login 412 (mail)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_login412 = pm.request.body.raw",
+									"",
+									"let parsed_request_login412 = JSON.parse(request_login412)",
+									"",
+									"console.log(request_login412)",
+									"",
+									"//cпарсить response body в json",
+									"let response_login412 = pm.response.json()",
+									"",
+									"console.log(response_login412)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 412\", function () {",
+									"    pm.response.to.have.status(412);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"\",\n  \"password\": \"12345678\",\n  \"username\": \"sa\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/login",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						},
+						"description": "Generated from cURL: curl 'https://try.vikunja.io/api/v1/login' -X POST -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Content-Type: application/json' -H 'Referer: https://try.vikunja.io/register' -H 'Origin: https://try.vikunja.io' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Connection: keep-alive' -H 'TE: trailers' --data-raw $'{\"username\":\"C\\u0430\\u0438\\u0434\\u0430\",\"email\":\"saida_khis@mail.ru\",\"password\":\"12345678\"}'"
+					},
+					"response": []
+				},
+				{
+					"name": "2.3 login 404",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_login404 = pm.request.body.raw",
+									"",
+									"let parsed_request_login404 = JSON.parse(request_login404)",
+									"",
+									"console.log(request_login404)",
+									"",
+									"//cпарсить response body в json",
+									"let response_login404 = pm.response.json()",
+									"",
+									"console.log(response_login404)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"saida1605199@mail\",\n  \"password\": \"12345678\",\n  \"username\": \"saidd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/login",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						},
+						"description": "Generated from cURL: curl 'https://try.vikunja.io/api/v1/login' -X POST -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Content-Type: application/json' -H 'Referer: https://try.vikunja.io/register' -H 'Origin: https://try.vikunja.io' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Connection: keep-alive' -H 'TE: trailers' --data-raw $'{\"username\":\"C\\u0430\\u0438\\u0434\\u0430\",\"email\":\"saida_khis@mail.ru\",\"password\":\"12345678\"}'"
+					},
+					"response": []
+				},
+				{
+					"name": "2.4 create label",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json - как это в put делать??",
+									"let request_create = pm.request.body.raw",
+									"",
+									"let parsed_request_create = JSON.parse(request_create)",
+									"",
+									"//cпарсить response body в json",
+									"let response_create = pm.response.json()",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"//id в коллекцию",
+									"pm.collectionVariables.set(\"id\", response_create.id);",
+									"",
+									"//проверка поля наличия поля title",
+									"pm.test(\"Проверка наличия cвойства 'title'\", function () {",
+									"    pm.expect(response_create).to.have.property('title');",
+									"});",
+									"",
+									"//title в коллекцию",
+									"pm.collectionVariables.set(\"title\", response_create.title);",
+									"",
+									"//cоответствие названия title",
+									"pm.test(\"Проверка поля title\", function () {",
+									"    pm.expect(request_create.title).to.equal(response_create.title[\"LabelQAtester\"]);",
+									"});",
+									"",
+									"console.log(request_create)",
+									"console.log(response_create);",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"LabelQAtester\",\n    \"description\": \"ProjectAboutPostman\",\n    \"hex_color\": \"EE506\",\n    \"id\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Generated from cURL: curl 'https://try.vikunja.io/api/v1/login' -X POST -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Content-Type: application/json' -H 'Referer: https://try.vikunja.io/register' -H 'Origin: https://try.vikunja.io' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Connection: keep-alive' -H 'TE: trailers' --data-raw $'{\"username\":\"C\\u0430\\u0438\\u0434\\u0430\",\"email\":\"saida_khis@mail.ru\",\"password\":\"12345678\"}'"
+					},
+					"response": []
+				},
+				{
+					"name": "2.4 create label Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json - как это в put делать??",
+									"let request_create = pm.request.body.raw",
+									"",
+									"let parsed_request_create = JSON.parse(request_create)",
+									"",
+									"//cпарсить response body в json",
+									"let response_create = pm.response.json()",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"LabelQAtester\"\n}\n{\n  \"created\": \"\",\n  \"created_by\": {\n    \"created\": \"\",\n    \"email\": \"saida160519@mail.ru\",\n    \"id\": 107,\n    \"name\": \"said\",\n    \"updated\": \"\",\n    \"username\": \"khislis\"\n  },\n  \"description\": \"ProjectAboutPostman\",\n  \"hex_color\": \"pink\",\n  \"id\": 0,\n  \"title\": \"LabelQAtester\",\n  \"updated\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Generated from cURL: curl 'https://try.vikunja.io/api/v1/login' -X POST -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Content-Type: application/json' -H 'Referer: https://try.vikunja.io/register' -H 'Origin: https://try.vikunja.io' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Connection: keep-alive' -H 'TE: trailers' --data-raw $'{\"username\":\"C\\u0430\\u0438\\u0434\\u0430\",\"email\":\"saida_khis@mail.ru\",\"password\":\"12345678\"}'"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "label",
+			"item": [
+				{
+					"name": "2.4.1.1 Creates a label 400 (251 симв)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_label400 = pm.request.body.raw",
+									"",
+									"let parsed_request_label400 = JSON.parse(request_label400)",
+									"",
+									"console.log(request_label400)",
+									"",
+									"//cпарсить response body в json",
+									"let response_label400 = pm.response.json()",
+									"",
+									"console.log(response_label400)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"LabelQAtesterqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaaaaaaaaaqqqqqqqaaaaaaaaaqqqqqqqqqqaaaaaaaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaaaaaaaaaqqqqqqqaaaaaaaaaqqqqqqqqqqaaaaaaaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaaaaaaaaaqqqqqqqaaaaaaaaaqqqqqqqqqqaaaaaaaqaqaqaqaqaqaqaqaqaQ\"\n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.1.2 Creates a label 400",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_label40 = pm.request.body.raw",
+									"",
+									"let parsed_request_label40 = JSON.parse(request_label40)",
+									"",
+									"console.log(request_label40)",
+									"",
+									"//cпарсить response body в json",
+									"let response_label40 = pm.response.json()",
+									"",
+									"console.log(response_label40)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\"\n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.1.4 Creates a label 400",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_label400 = pm.request.body.raw",
+									"",
+									"let parsed_request_label400 = JSON.parse(request_label400)",
+									"",
+									"console.log(request_label400)",
+									"",
+									"//cпарсить response body в json",
+									"let response_label400 = pm.response.json()",
+									"",
+									"console.log(response_label400)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/javascript",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": null\n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.1.4 Creates a label 400",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_label400 = pm.request.body.raw",
+									"",
+									"let parsed_request_label400 = JSON.parse(request_label400)",
+									"",
+									"console.log(request_label400)",
+									"",
+									"//cпарсить response body в json",
+									"let response_label400 = pm.response.json()",
+									"",
+									"console.log(response_label400)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/javascript",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.1.4 Creates a label 400",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_label400 = pm.request.body.raw",
+									"",
+									"let parsed_request_label400 = JSON.parse(request_label400)",
+									"",
+									"console.log(request_label400)",
+									"",
+									"//cпарсить response body в json",
+									"let response_label400 = pm.response.json()",
+									"",
+									"console.log(response_label400)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/javascript",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": 6\n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.1.1 Creates a label 400 (250 симв)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_label400 = pm.request.body.raw",
+									"",
+									"let parsed_request_label400 = JSON.parse(request_label400)",
+									"",
+									"console.log(request_label400)",
+									"",
+									"//cпарсить response body в json",
+									"let response_label400 = pm.response.json()",
+									"",
+									"console.log(response_label400)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"LabelQAtesterqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaaaaaaaaaqqqqqqqaaaaaaaaaqqqqqqqqqqaaaaaaaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaaaaaaaaaqqqqqqqaaaaaaaaaqqqqqqqqqqaaaaaaaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaaaaaaaaaqqqqqqqaaaaaaaaaqqqqqqqqqqaaaaaaaqaqaqaqaqaqaqaqaqa\"\n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.1.1 Creates a label 400 (249 симв)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_label400 = pm.request.body.raw",
+									"",
+									"let parsed_request_label400 = JSON.parse(request_label400)",
+									"",
+									"console.log(request_label400)",
+									"",
+									"//cпарсить response body в json",
+									"let response_label400 = pm.response.json()",
+									"",
+									"console.log(response_label400)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"LabelQAtesterqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaaaaaaaaaqqqqqqqaaaaaaaaaqqqqqqqqqqaaaaaaaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaaaaaaaaaqqqqqqqaaaaaaaaaqqqqqqqqqqaaaaaaaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaaaaaaaaaqqqqqqqaaaaaaaaaqqqqqqqqqqaaaaaaaqaqaqaqaqaqaqaqaq\"\n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.1.1 Creates a label 400 (1 симв)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_label400 = pm.request.body.raw",
+									"",
+									"let parsed_request_label400 = JSON.parse(request_label400)",
+									"",
+									"console.log(request_label400)",
+									"",
+									"//cпарсить response body в json",
+									"let response_label400 = pm.response.json()",
+									"",
+									"console.log(response_label400)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"L\"\n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.1.3 Creates a label 400",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_label400 = pm.request.body.raw",
+									"",
+									"let parsed_request_label400 = JSON.parse(request_label400)",
+									"",
+									"console.log(request_label400)",
+									"",
+									"//cпарсить response body в json",
+									"let response_label400 = pm.response.json()",
+									"",
+									"console.log(response_label400)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\\\"\n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.2 Creates a label 415",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_label415 = pm.request.body.raw",
+									"",
+									"let parsed_request_label415 = JSON.parse(request_label415)",
+									"",
+									"console.log(request_label415)",
+									"",
+									"//cпарсить response body в json",
+									"let response_label415 = pm.response.json()",
+									"",
+									"console.log(response_label415)",
+									"",
+									"//проверка на статус код",
+									"",
+									"pm.test(\"verify status code is 415\", function () {",
+									"    pm.response.to.have.status(415);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"LabelQAtester\"\n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.3 Creates a label 404",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_label404 = pm.request.body.raw",
+									"",
+									"let parsed_request_label404 = JSON.parse(request_label404)",
+									"",
+									"console.log(request_label404)",
+									"",
+									"//cпарсить response body в json",
+									"let response_label404 = pm.response.json()",
+									"",
+									"console.log(response_label404)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"LabelQAtester\"\n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/label",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"label"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.4 Creates a label 405",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request body в json",
+									"let request_labelpatch = pm.request.body.raw",
+									"",
+									"let parsed_request_labelpatch = JSON.parse(request_labelpatch)",
+									"",
+									"console.log(request_labelpatch)",
+									"",
+									"//cпарсить response body в json",
+									"let response_labelpatch = pm.response.json()",
+									"",
+									"console.log(response_labelpatch)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"LabelQAtester\"\n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labels",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labels"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.5a Creates a label 200",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request из get запроса в json",
+									"let request_label200 = pm.request.url.query.toObject()",
+									"",
+									"console.log(request_label200)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}/api/v1/labels/{{id}}",
+							"host": [
+								"{{vikunja}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"labels",
+								"{{id}}"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.5b Creates a label 404",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//cпарсить request из get запроса в json",
+									"let request_label404 = pm.request.url.query.toObject()",
+									"",
+									"console.log(request_label404)",
+									"",
+									"//проверка на статус код",
+									"pm.test(\"verify status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vikunja}}api/v1/labe/{{id}}",
+							"host": [
+								"{{vikunja}}api"
+							],
+							"path": [
+								"v1",
+								"labe",
+								"{{id}}"
+							]
+						},
+						"description": "Creates a new project. If a parent project is provided the user needs to have write access to that project."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": ""
+		},
+		{
+			"key": "title",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
